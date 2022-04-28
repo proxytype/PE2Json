@@ -1,7 +1,4 @@
-﻿// PeCollector.cpp : Defines the entry point for the console application.
-//
-
-#include "Windows.h"
+﻿#include "Windows.h"
 #include <iostream>
 #include <stdio.h>
 #include <string>

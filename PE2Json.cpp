@@ -50,7 +50,7 @@ void replace(std::string& str, const std::string& from, const std::string& to) {
 	size_t start_pos = 0;
 	while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
 		str.replace(start_pos, from.length(), to);
-		start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+		start_pos += to.length();
 	}
 }
 
@@ -122,7 +122,6 @@ void printFileVersion(char* pszFilePath)
 	VS_FIXEDFILEINFO* pFileInfo = NULL;
 	UINT                puLenFileInfo = 0;
 
-	// Get the version information for the file requested
 	dwSize = GetFileVersionInfoSizeA(pszFilePath, NULL);
 	if (dwSize == 0)
 	{
@@ -454,9 +453,9 @@ void printImportSection(PIMAGE_SECTION_HEADER importSection, PBYTE buffer, PIMAG
 		for (; thunkData->u1.AddressOfData != 0; thunkData++) {
 
 			json.append("\"");
-			//a cheap and probably non-reliable way of checking if the function is imported via its ordinal number ¯\_(ツ)_/¯
+
 			if (IMAGE_SNAP_BY_ORDINAL(thunkData->u1.AddressOfData)) {
-				//show lower bits of the value to get the ordinal ¯\_(ツ)_/¯
+
 				json.append(convertWord((WORD)thunkData->u1.AddressOfData));
 			}
 			else {
@@ -481,19 +480,19 @@ void saveFile(string output, char* fileOutput) {
 	DWORD dwBytesToWrite = (DWORD)strlen(output.c_str());
 
 	DeleteFileA(fileOutput);
-	HANDLE     hFile = CreateFileA(fileOutput,                // name of the write
-		GENERIC_WRITE,          // open for writing
-		0,                      // do not share
-		NULL,                   // default security
-		CREATE_NEW,             // create new file only
-		FILE_ATTRIBUTE_NORMAL,  // normal file
-		NULL);                  // no attr. template
+	HANDLE     hFile = CreateFileA(fileOutput,                
+		GENERIC_WRITE,          
+		0,                      
+		NULL,                  
+		CREATE_NEW,             
+		FILE_ATTRIBUTE_NORMAL,  
+		NULL);                  
 
 	WriteFile(
-		hFile,           // open file handle
-		output.c_str(),      // start of data to write
-		dwBytesToWrite,  // number of bytes to write
-		&dwBytesWritten, // number of bytes that were written
+		hFile,           
+		output.c_str(),      
+		dwBytesToWrite,  
+		&dwBytesWritten, 
 		NULL);
 }
 
@@ -548,7 +547,7 @@ int main(int argc, char* argv[])
 	string filename(argv[1]);
 
 	string output(argv[2]);
-	printf(" Output: %s\n", argv[1]);
+	printf(" Output: %s\n", argv[2]);
 
 	replace(filename, "\\", "\\\\");
 
